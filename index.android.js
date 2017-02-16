@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+    Navigator,
   StyleSheet,
   Text,
   View
@@ -14,13 +15,32 @@ import {
 
 import SimpleButton from './App/Components/SimpleButton.react-native'
 export default class ReactNotes extends Component {
+
+    constructor(){
+        this.renderScene = this.renderScene.bind(this)
+    }
+
+    renderScene(route,navigator){
+        switch(route.name){
+            case 'home':
+                return(
+                    <View style={styles.container}>
+                        <SimpleButton onPress={()=> console.log('Pressed')}
+                                      customText='Create Note'
+                        />
+                    </View>
+                );
+            case 'createNote':
+        }
+
+    }
+
   render() {
     return (
-        <View style={styles.container}>
-          <SimpleButton/>
-        </View>
-
-    );
+        <Navigator initialRoute={{name:'home'}}
+                   renderScene={this.renderScene}
+        />
+    )
   }
 }
 
