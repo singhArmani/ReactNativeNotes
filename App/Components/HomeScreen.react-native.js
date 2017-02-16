@@ -4,12 +4,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export default class NoteScreen extends React.Component{
-
+export default class HomeScreen extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                <Text>Create Notes Screen!</Text>
+                <Text>Home</Text>
             </View>
         );
     }
@@ -20,6 +19,6 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#5FBA7D'
+        backgroundColor:'#FA4C44'
     }
 })

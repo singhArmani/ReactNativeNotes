@@ -14,9 +14,60 @@ import {
 } from 'react-native';
 
 import SimpleButton from './App/Components/SimpleButton.react-native'
+import NoteScreen from './App/Components/NoteScreen.react-native'
+import HomeScreen from './App/Components/HomeScreen.react-native'
+
+//object for routeMapper prop
+let NavigationBarRouteMapper ={
+    LeftButton:(route,navigator,index,navState) => {
+        switch (route.name) {
+            case 'createNote':
+                return (
+                    <SimpleButton onPress={() => {
+                            navigator.pop()
+                        }}
+                                  customText='Back'
+                    />
+                );
+            default:
+                return null;
+        }
+        
+    },
+    RightButton: (route,navigator,index,navState) => {
+        switch (route.name) {
+            case 'home':
+                return (
+                    <SimpleButton onPress={() => {
+                            navigator.push({
+                                name:'createNote'
+                            })
+                        }}
+                                  customText='Create Note'
+                    />
+                );
+            default:
+                return null;
+        }
+    },
+    Title: (route,navigator,index,navState) => {
+        switch (route.name) {
+            case 'home':
+                return (
+                    <Text>React Note</Text>
+                );
+            case 'createNote':
+                return (
+                    <Text>Create Note</Text>
+                );
+        }
+    }
+}
+
 export default class ReactNotes extends Component {
 
     constructor(){
+        super()
         this.renderScene = this.renderScene.bind(this)
     }
 
@@ -24,21 +75,25 @@ export default class ReactNotes extends Component {
         switch(route.name){
             case 'home':
                 return(
-                    <View style={styles.container}>
-                        <SimpleButton onPress={()=> console.log('Pressed')}
-                                      customText='Create Note'
-                        />
-                    </View>
+                    <HomeScreen/>
                 );
             case 'createNote':
+                return(
+                    <NoteScreen/>
+                )
         }
 
     }
 
   render() {
     return (
-        <Navigator initialRoute={{name:'home'}}
+        <Navigator initialRoute={{name:'home', index:0}}
                    renderScene={this.renderScene}
+                   navigationBar={
+                       <Navigator.NavigationBar
+                        routeMapper={NavigationBarRouteMapper}
+                       />
+                   }
         />
     )
   }
